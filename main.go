@@ -25,5 +25,5 @@ func main() {
 	initEnv()
 	data := lichess.GetLichessData(API_KEY)
 
-	charts.RenderChart(data)
+	charts.RenderAll(data)
 }
