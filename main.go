@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io"
 	"log/slog"
 	"net/http"
 	"os"
@@ -62,11 +61,7 @@ func getLichessData() {
 	defer res.Body.Close()
 
 	// Read and parse the response body
-	data, err := io.ReadAll(res.Body)
-	if err != nil {
-		slog.Error("Error reading response body", "error", err)
-	}
-	err = json.Unmarshal(data, &jsonData)
+	err = json.NewDecoder(res.Body).Decode(&jsonData)
 	if err != nil {
 		slog.Error("Error unmarshalling JSON", "error", err)
 	}
