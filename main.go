@@ -11,7 +11,26 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var jsonData map[string]any
+type LichessData struct {
+	White int `json:"white"`
+	Black int `json:"black"`
+	Draws int `json:"draws"`
+
+	Moves []struct {
+		White         int    `json:"white"`
+		Black         int    `json:"black"`
+		Draws         int    `json:"draws"`
+		AvarageRating int    `json:"averageRating"`
+		San           string `json:"san"`
+		Uci           string `json:"uci"`
+		Opening       struct {
+			Eco  string `json:"eco"`
+			Name string `json:"name"`
+		}
+	} `json:"moves"`
+}
+
+var jsonData LichessData
 var API_KEY string
 
 func initEnv() {
@@ -54,7 +73,7 @@ func getLichessData() {
 }
 
 // Pretty print the JSON data
-func prettyPrint(data map[string]any) {
+func prettyPrint(data LichessData) {
 	prettyData, err := json.MarshalIndent(data, "", "  ")
 	if err != nil {
 		slog.Error("Error pretty printing JSON", "error", err)
@@ -65,10 +84,6 @@ func prettyPrint(data map[string]any) {
 func main() {
 	initEnv()
 	getLichessData()
-
-	// Remove top and recent games
-	delete(jsonData, "topGames")
-	delete(jsonData, "recentGames")
 
 	prettyPrint(jsonData)
 }
