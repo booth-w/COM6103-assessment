@@ -19,7 +19,7 @@ type LichessData struct {
 		White         int    `json:"white"`
 		Black         int    `json:"black"`
 		Draws         int    `json:"draws"`
-		AvarageRating int    `json:"averageRating"`
+		AverageRating int    `json:"averageRating"`
 		San           string `json:"san"`
 		Uci           string `json:"uci"`
 		Opening       struct {
