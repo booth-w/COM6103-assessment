@@ -12,15 +12,18 @@ import (
 )
 
 var jsonData map[string]any
+var API_KEY string
 
-func main() {
+func initEnv() {
 	// Load .env file
 	err := godotenv.Load()
 	if err != nil {
 		slog.Error("Error loading .env file", "error", err)
 	}
-	API_KEY := os.Getenv("LICHESS_API_KEY")
+	API_KEY = os.Getenv("LICHESS_API_KEY")
+}
 
+func getLichessData() {
 	url := "https://explorer.lichess.org/lichess"
 
 	// Create a new HTTP request
@@ -48,15 +51,24 @@ func main() {
 	if err != nil {
 		slog.Error("Error unmarshalling JSON", "error", err)
 	}
+}
+
+// Pretty print the JSON data
+func prettyPrint(data map[string]any) {
+	prettyData, err := json.MarshalIndent(data, "", "  ")
+	if err != nil {
+		slog.Error("Error pretty printing JSON", "error", err)
+	}
+	fmt.Println(string(prettyData))
+}
+
+func main() {
+	initEnv()
+	getLichessData()
 
 	// Remove top and recent games
 	delete(jsonData, "topGames")
 	delete(jsonData, "recentGames")
 
-	// Pretty print the JSON data
-	prettyData, err := json.MarshalIndent(jsonData, "", "  ")
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(prettyData))
+	prettyPrint(jsonData)
 }
