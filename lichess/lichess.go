@@ -26,8 +26,8 @@ type LichessData struct {
 	} `json:"moves"`
 }
 
-func GetLichessData(API_KEY string) LichessData {
-	url := "https://explorer.lichess.org/lichess"
+func GetLichessData(API_KEY string, database string) LichessData {
+	url := "https://explorer.lichess.org/" + database
 
 	// Create a new HTTP request
 	req, err := http.NewRequest("GET", url, nil)

@@ -56,8 +56,8 @@ func generateWinRateChart(data lichess.LichessData) *charts.Bar {
 
 	bar.SetGlobalOptions(
 		charts.WithInitializationOpts(opts.Initialization{
-			Width:  "1000px",
-			Height: "600px",
+			Width:  "40vw",
+			Height: "50vh",
 		}),
 		charts.WithYAxisOpts(opts.YAxis{
 			Type: "value",
@@ -110,8 +110,8 @@ func generatePopularityChart(data lichess.LichessData) *charts.Bar {
 
 	bar.SetGlobalOptions(
 		charts.WithInitializationOpts(opts.Initialization{
-			Width:  "1000px",
-			Height: "600px",
+			Width:  "40vw",
+			Height: "50vh",
 		}),
 		charts.WithYAxisOpts(opts.YAxis{
 			Type: "value",

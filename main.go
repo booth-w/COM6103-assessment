@@ -23,7 +23,8 @@ func initEnv() {
 
 func main() {
 	initEnv()
-	data := lichess.GetLichessData(API_KEY)
+	lichessData := lichess.GetLichessData(API_KEY, "lichess")
+	mastersData := lichess.GetLichessData(API_KEY, "masters")
 
-	charts.RenderAll(data)
+	charts.RenderAll(lichessData, mastersData)
 }
